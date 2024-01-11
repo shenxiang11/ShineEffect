@@ -8,14 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var shine: Bool = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            VStack {
+                Image(.girl)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 280, height: 280)
+                    .clipShape(RoundedRectangle(cornerSize: CGSize(width: 50, height: 50), style: .continuous))
+                    .shimmering(active: shine)
+                    .onTapGesture {
+                        shine.toggle()
+                    }
+            }
+            .navigationTitle("Shine Effect")
         }
-        .padding()
     }
 }
 
