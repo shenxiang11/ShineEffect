@@ -9,10 +9,25 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var shine: Bool = false
+    @State private var shineBtn = false
     
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(spacing: 100) {
+                Button {
+                    shineBtn.toggle()
+                } label: {
+                    Text("立即下载")
+                        .foregroundColor(.white)
+                        .fontWeight(.semibold)
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 80)
+                        .background(.blue, in: .capsule)
+                        .shimmering(active: shineBtn)
+                        
+                }
+
+                
                 Image(.girl)
                     .resizable()
                     .aspectRatio(contentMode: .fit)

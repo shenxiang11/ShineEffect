@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct Shimmer: ViewModifier {
-    var active = false
+    let active: Bool
+    
     
     private let gradient = LinearGradient(colors: [
         .clear,
@@ -27,10 +28,12 @@ struct Shimmer: ViewModifier {
             .overlay {
                 GeometryReader { proxy in
                     let size = proxy.size
+                    let l = max(size.width, size.height)
+                    let scaleY = sqrt(l * l * 2) / size.height
                     
                     RoundedRectangle(cornerSize: .zero)
                         .fill(gradient)
-                        .scaleEffect(y: 1.4142135623730951)
+                        .scaleEffect(y: scaleY)
                         .keyframeAnimator(initialValue: 0.0, trigger: active) { content, progress in
                             content
                                 .offset(x: -size.width + progress * size.width * 2)
@@ -40,6 +43,9 @@ struct Shimmer: ViewModifier {
                         }
                         .rotationEffect(.degrees(45))
                 }
+            }
+            .mask {
+                content
             }
     }
 }
